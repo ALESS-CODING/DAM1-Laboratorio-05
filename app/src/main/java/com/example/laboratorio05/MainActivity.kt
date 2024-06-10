@@ -5,21 +5,24 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ListView
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import com.example.laboratorio05.Utilidad.Util
 import com.example.laboratorio05.implementaciones.ImpDistrito
+import com.example.laboratorio05.implementaciones.ImpRegistro
 import com.example.laboratorio05.interfaces.IDistrito
 
 class MainActivity : AppCompatActivity() {
     //declarando controles
-    private lateinit var cmbDistrito : Spinner
+
     private lateinit var txtNombres : EditText
     private lateinit var txtApellidos : EditText
     private lateinit var txtDni : EditText
     private lateinit var txtFechaNacimiento : EditText
     private lateinit var txtDireccion : EditText
+    private lateinit var cmbDistrito : Spinner
     private lateinit var txtTelefono : EditText
     private lateinit var txtCelular : EditText
     private lateinit var txtCorreo : EditText
@@ -30,6 +33,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var btnRegistrar : Button
     private lateinit var btnActualizar : Button
+    private lateinit var btnEliminar : Button
+    private lateinit var btnSalir : Button
+    private lateinit var lstRegistro : ListView
 
     //Declrando variables
 
@@ -40,6 +46,7 @@ class MainActivity : AppCompatActivity() {
     val distritos:IDistrito= ImpDistrito()
     var adaptadorComboDistrito: ArrayAdapter<String>? = null
     val util:Util = Util()
+    val registro = ImpRegistro()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,12 +63,16 @@ class MainActivity : AppCompatActivity() {
         txtTelefono = findViewById(R.id.txtTel)
         txtCelular = findViewById(R.id.txtCel)
         txtCorreo = findViewById(R.id.txtCorreo)
+        rgSexo = findViewById(R.id.rgSexo)
         rbM = findViewById(R.id.rbM)
         rbF = findViewById(R.id.rbF)
         rbOtros = findViewById(R.id.rbO)
+        lstRegistro = findViewById(R.id.lstRegistro)
 
         btnRegistrar = findViewById(R.id.btnRegistrar)
         btnActualizar = findViewById(R.id.btnActualizar)
+        btnEliminar = findViewById(R.id.btnEliminar)
+        btnSalir = findViewById(R.id.btnSalir)
 
         //creamosun adapatador para el combo
         adaptadorComboDistrito = ArrayAdapter(this, android.R.layout.simple_spinner_item, distritos.CargarComboDitrito())
@@ -91,6 +102,10 @@ class MainActivity : AppCompatActivity() {
                 util.MensajeAlerta(this, "Validacion de datos", "Ingrese la direccion",
                     false, "Aceptar")
                 txtDireccion.requestFocus()
+            }else if (cmbDistrito.selectedItemPosition == 0){
+                util.MensajeAlerta(this, "Validacion de datos", "Seleccione un distrito ",
+                    false, "Aceptar")
+                cmbDistrito.requestFocus()
             }else if (txtTelefono.getText().isBlank()){
                 util.MensajeAlerta(this, "Validacion de datos", "Ingrese el telefono",
                     false, "Aceptar")
