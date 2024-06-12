@@ -17,14 +17,21 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView12"
+                android:id="@+id/lblCodigo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Codigo : " />
+
+            <TextView
+                android:id="@+id/lblNombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Nombres " />
 
             <TextView
-                android:id="@+id/textView13"
+                android:id="@+id/lblApellido"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -37,14 +44,14 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/lblDni"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="DNI" />
 
             <TextView
-                android:id="@+id/textView15"
+                android:id="@+id/lblFechaNacimiento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -57,7 +64,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView16"
+                android:id="@+id/lblDireccion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -70,7 +77,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView19"
+                android:id="@+id/lblDistrito"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -83,14 +90,14 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView17"
+                android:id="@+id/lblCelular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Celular :" />
 
             <TextView
-                android:id="@+id/textView18"
+                android:id="@+id/lblTelefono"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -103,7 +110,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView20"
+                android:id="@+id/lblCorreo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -116,14 +123,14 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView21"
+                android:id="@+id/lblSexo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Sexo" />
 
             <TextView
-                android:id="@+id/textView22"
+                android:id="@+id/lblEstado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
