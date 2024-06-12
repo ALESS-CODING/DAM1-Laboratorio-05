@@ -2,17 +2,25 @@ package com.example.laboratorio05
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import com.example.laboratorio05.Utilidad.Util
+import com.example.laboratorio05.adapatadores.AdaptadorComboDistrito
+import com.example.laboratorio05.adapatadores.AdaptadorListaRegistro
+import com.example.laboratorio05.clases.Distrito
+import com.example.laboratorio05.clases.Registro
 import com.example.laboratorio05.implementaciones.ImpDistrito
 import com.example.laboratorio05.implementaciones.ImpRegistro
 import com.example.laboratorio05.interfaces.IDistrito
+import com.example.laboratorio05.interfaces.IRegistro
+import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
     //declarando controles
@@ -30,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var rbM : RadioButton
     private lateinit var rbF : RadioButton
     private lateinit var rbOtros : RadioButton
+    private lateinit var chkEstado : CheckBox
 
     private lateinit var btnRegistrar : Button
     private lateinit var btnActualizar : Button
@@ -38,20 +47,42 @@ class MainActivity : AppCompatActivity() {
     private lateinit var lstRegistro : ListView
 
     //Declrando variables
+    var codigo: Long = 0
+    var nombre: String = ""
+    var apellidos : String =""
+    var dni: String = ""
+    var distrito : String = ""
+    var fecha: LocalDate? = null
+    var direccion: String = ""
+    var telefono: String = ""
+    var celular: String = ""
+    var correo: String = ""
+    var sexo: String = ""
+    var estado: Boolean = false
+
+    //creamos la lista de refistro
+    lateinit var listaRegistro : List<Registro>
 
     //declarando objetos
-
+    val util:Util = Util()
+    val distritos:IDistrito= ImpDistrito()
+    val registro : Registro = Registro()
+    val objDistrito: Distrito = Distrito()
 
     //imlementaciones la interface
-    val distritos:IDistrito= ImpDistrito()
+    var registros:IRegistro = ImpRegistro ()
+
+    //Agregamos un adaptador, es para el combo
     var adaptadorComboDistrito: ArrayAdapter<String>? = null
-    val util:Util = Util()
-    val registro = ImpRegistro()
+    var adaptadorListaRegistro: AdaptadorListaRegistro? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        listaRegistro = registros.mostrarRegistro()
+        adaptadorListaRegistro = AdaptadorListaRegistro(this, listaRegistro)
 
         //Creamos los controles
         cmbDistrito = findViewById(R.id.cboDistrito)
@@ -67,6 +98,7 @@ class MainActivity : AppCompatActivity() {
         rbM = findViewById(R.id.rbM)
         rbF = findViewById(R.id.rbF)
         rbOtros = findViewById(R.id.rbO)
+        chkEstado = findViewById(R.id.chkEstado)
         lstRegistro = findViewById(R.id.lstRegistro)
 
         btnRegistrar = findViewById(R.id.btnRegistrar)
@@ -122,6 +154,51 @@ class MainActivity : AppCompatActivity() {
                 util.MensajeAlerta(this, "Validacion de datos", "Seleccione el sexo",
                     false, "Aceptar")
                 rbOtros.isChecked = true
+            }else{
+                codigo++
+                nombre = txtNombres.text.toString()
+                apellidos = txtApellidos.text.toString()
+                dni = txtDni.text.toString()
+
+                direccion = txtDireccion.text.toString()
+                distrito = cmbDistrito.selectedItem.toString()
+                telefono = txtTelefono.text.toString()
+                celular = txtCelular.text.toString()
+                correo = txtCorreo.text.toString()
+
+                if (rbM.isChecked){
+                    sexo = "Masculino"
+                }else if(rbF.isChecked){
+                    sexo = "Masculino"
+                }else sexo = "Otros"
+
+
+                if(chkEstado.isChecked){
+                    estado = true
+                }else estado = false
+
+                registro.codigo = codigo
+                registro.nombre = nombre
+                registro.apellidos = apellidos
+                registro.dni = dni
+                registro.direccion = direccion
+                registro.telefono = telefono
+                registro.celular = celular
+                registro.correo = correo
+                registro.sexo = sexo
+                registro.estado = estado
+                objDistrito.nombre = distrito
+                registro.distrito = objDistrito
+                println("Funciona")
+                var  res = registros.registrarRegistro(registro)
+                util.MensajeAlerta(this,
+                    "Registro de datos",
+                    "Se registro el distrito",
+                    false,
+                    "Aceptar")
+                println("llegaa")
+                adaptadorListaRegistro!!.notifyDataSetChanged()
+                lstRegistro.adapter = adaptadorListaRegistro
             }
         }
     }

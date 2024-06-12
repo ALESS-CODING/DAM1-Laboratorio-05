@@ -58,7 +58,7 @@ class AdaptadorListaRegistro (context: Context?, val listaRegistro: List<Registr
             lblApellido.text = objRegistro.apellidos
             lblDni.text = objRegistro.dni
             lblFechaNacimiento.text = objRegistro.fecha.toString()
-            lblDireccion.text =objRegistro.direccion
+            lblDireccion.text = objRegistro.direccion
             lblDistrito.text = objRegistro.distrito!!.nombre
             lblTelefono.text = objRegistro.telefono
             lblCorreo.text = objRegistro.correo
