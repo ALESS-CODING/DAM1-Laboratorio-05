@@ -1,16 +1,22 @@
 package com.example.laboratorio05
 
+import android.app.DatePickerDialog
+import android.icu.util.Calendar
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.CheckBox
+import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
+import androidx.annotation.RequiresApi
 import com.example.laboratorio05.Utilidad.Util
 import com.example.laboratorio05.adapatadores.AdaptadorComboDistrito
 import com.example.laboratorio05.adapatadores.AdaptadorListaRegistro
@@ -60,6 +66,8 @@ class MainActivity : AppCompatActivity() {
     var sexo: String = ""
     var estado: Boolean = false
 
+    var calendar = Calendar.getInstance()
+
     //creamos la lista de refistro
     lateinit var listaRegistro : List<Registro>
 
@@ -101,6 +109,7 @@ class MainActivity : AppCompatActivity() {
         chkEstado = findViewById(R.id.chkEstado)
         lstRegistro = findViewById(R.id.lstRegistro)
 
+
         btnRegistrar = findViewById(R.id.btnRegistrar)
         btnActualizar = findViewById(R.id.btnActualizar)
         btnEliminar = findViewById(R.id.btnEliminar)
@@ -111,6 +120,8 @@ class MainActivity : AppCompatActivity() {
 
         //asignamos  el adaptador al spiner
         cmbDistrito.adapter = adaptadorComboDistrito
+
+
 
         //validando datos
         btnRegistrar.setOnClickListener {
@@ -159,7 +170,7 @@ class MainActivity : AppCompatActivity() {
                 nombre = txtNombres.text.toString()
                 apellidos = txtApellidos.text.toString()
                 dni = txtDni.text.toString()
-
+                fecha = LocalDate.of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
                 direccion = txtDireccion.text.toString()
                 distrito = cmbDistrito.selectedItem.toString()
                 telefono = txtTelefono.text.toString()
@@ -176,11 +187,12 @@ class MainActivity : AppCompatActivity() {
                 if(chkEstado.isChecked){
                     estado = true
                 }else estado = false
-
+                println("FECHA : $fecha")
                 registro.codigo = codigo
                 registro.nombre = nombre
                 registro.apellidos = apellidos
                 registro.dni = dni
+                registro.fecha = fecha
                 registro.direccion = direccion
                 registro.telefono = telefono
                 registro.celular = celular
@@ -189,17 +201,36 @@ class MainActivity : AppCompatActivity() {
                 registro.estado = estado
                 objDistrito.nombre = distrito
                 registro.distrito = objDistrito
-                println("Funciona")
-                var  res = registros.registrarRegistro(registro)
+                registros.registrarRegistro(registro)
                 util.MensajeAlerta(this,
                     "Registro de datos",
                     "Se registro el distrito",
                     false,
                     "Aceptar")
-                println("llegaa")
                 adaptadorListaRegistro!!.notifyDataSetChanged()
                 lstRegistro.adapter = adaptadorListaRegistro
             }
         }
+
+        txtFechaNacimiento.setOnClickListener {
+            selectedDate ()
+        }
+
+
     }
+
+    private fun selectedDate() {
+        val txtFecha = findViewById<EditText>(R.id.txtFec)
+
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val listener = DatePickerDialog.OnDateSetListener { datePicker, year, month, dayOfMonth ->
+            calendar.set(year, month, dayOfMonth)
+            txtFecha.setText("$dayOfMonth-$month-$year")
+        }
+        DatePickerDialog(this, listener, year, month, dayOfMonth).show()
+    }
+
 }
