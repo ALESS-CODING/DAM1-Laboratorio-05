@@ -8,4 +8,5 @@ interface IRegistro {
     fun registrarRegistro( registro: Registro): Boolean
     fun actualizarRegistro( registro: Registro, codigo: Long): Boolean
     fun eliminarRegistro (codigo: Long): Boolean
+
 }

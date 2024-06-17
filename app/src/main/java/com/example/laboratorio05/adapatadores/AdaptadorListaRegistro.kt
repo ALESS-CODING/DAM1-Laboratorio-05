@@ -69,13 +69,7 @@ class AdaptadorListaRegistro (context: Context?, val listaRegistro: List<Registr
             }else{
                 lblEstado.text = "Deshabilitado"
             }
-
-
-
-
-
         }
-
         return  vista!!
     }
 }

@@ -180,14 +180,13 @@ class MainActivity : AppCompatActivity() {
                 if (rbM.isChecked){
                     sexo = "Masculino"
                 }else if(rbF.isChecked){
-                    sexo = "Masculino"
+                    sexo = "Feminino"
                 }else sexo = "Otros"
 
 
                 if(chkEstado.isChecked){
                     estado = true
                 }else estado = false
-                println("FECHA : $fecha")
                 registro.codigo = codigo
                 registro.nombre = nombre
                 registro.apellidos = apellidos
@@ -209,14 +208,13 @@ class MainActivity : AppCompatActivity() {
                     "Aceptar")
                 adaptadorListaRegistro!!.notifyDataSetChanged()
                 lstRegistro.adapter = adaptadorListaRegistro
+                Limpiar()
             }
         }
 
         txtFechaNacimiento.setOnClickListener {
             selectedDate ()
         }
-
-
     }
 
     private fun selectedDate() {
@@ -233,4 +231,32 @@ class MainActivity : AppCompatActivity() {
         DatePickerDialog(this, listener, year, month, dayOfMonth).show()
     }
 
+    //creamos una funcion para limpiar
+    fun Limpiar(){
+        txtDni.setText("")
+        txtApellidos.setText("")
+        txtDni.setText("")
+        txtFechaNacimiento.setText("")
+        txtDireccion.setText("")
+        cmbDistrito.setSelection(0)
+        txtTelefono.setText("")
+        txtTelefono.setText("")
+        txtCorreo.setText("")
+        rgSexo.clearCheck()
+        chkEstado.isChecked=false
+        nombre=""
+        apellidos=""
+        dni=""
+        fecha=null
+        direccion=""
+        distrito=""
+        telefono=""
+        celular=""
+        correo=""
+        sexo=""
+        estado=false
+        txtNombres.requestFocus()
+    }
+
 }
+
